@@ -1,0 +1,58 @@
+name: energy_harvest_app
+description: "A new Flutter project."
+publish_to: 'none' # Prevent accidental publication to pub.dev
+
+# Version and build number
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_bluetooth_serial: ^0.4.0
+  marquee: ^2.2.3
+  marquee_widget: ^1.2.0
+  percent_indicator: ^4.2.2
+  permission_handler: ^11.3.1
+  video_player: ^2.7.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  # Material Icons font
+  uses-material-design: true
+
+  # Assets (images and fonts)
+  assets:
+    - assets/images/
+    - assets/fonts/
+    - assets/videos/intro.mp4
+    - assets/videos/second_video.mp4
+
+
+  fonts:
+    - family: SUIT
+      fonts:
+        - asset: assets/fonts/SUIT-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/SUIT-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/SUIT-Light.ttf
+          weight: 300
+        - asset: assets/fonts/SUIT-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/SUIT-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/SUIT-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/SUIT-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/SUIT-Heavy.ttf
+          weight: 800
+        - asset: assets/fonts/SUIT-ExtraBold.ttf
+          weight: 900
