@@ -67,6 +67,13 @@ class _EnergyDisplayScreenState extends State<EnergyDisplayScreen> with TickerPr
     _initializeAnimations();
     connectToDevice();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    _fadeInController.addStatusListener((status) {
+      if (status == AnimationStatus.dismissed) {
+        setState(() {
+          _showGauge = false; // Hide the gauge after fade-out
+        });
+      }
+    });
   }
 
   void _initializeVideoControllers() {
@@ -157,6 +164,8 @@ class _EnergyDisplayScreenState extends State<EnergyDisplayScreen> with TickerPr
       curve: Curves.easeIn,
     );
 
+
+
     _fullEnergyAnimationController = AnimationController(
       duration: const Duration(milliseconds: 1000),
       vsync: this,
@@ -179,16 +188,16 @@ class _EnergyDisplayScreenState extends State<EnergyDisplayScreen> with TickerPr
     });
   }
 
-  void _onGaugeComplete() async {
+  void _onGaugeComplete() {
     _fadeInController.reverse(); // Start the fade-out animation
     _secondVideoController.play(); // Start playing the second video
     setState(() {
-      _showGauge = false;
       _showSecondVideo = true;
-      _showIntroVideo = false;
+      // Do not set _showGauge to false yet
     });
     _secondVideoController.addListener(_onSecondVideoEnd);
   }
+
 
 
 
@@ -328,16 +337,17 @@ class _EnergyDisplayScreenState extends State<EnergyDisplayScreen> with TickerPr
       body: Stack(
         children: [
           if (_showIntroVideo)
-            _buildVideoPlayer(_introVideoController)
-          else if (_showSecondVideo)
-            _buildVideoPlayer(_secondVideoController)
-          else if (_showGauge)
-              FadeTransition(
-                opacity: _fadeInAnimation,
-                child: _buildGaugeScreen(size, smallerDimension),
-              ),
+            _buildVideoPlayer(_introVideoController),
+          if (_showSecondVideo)
+            _buildVideoPlayer(_secondVideoController),
+          if (_showGauge)
+            FadeTransition(
+              opacity: _fadeInAnimation,
+              child: _buildGaugeScreen(size, smallerDimension),
+            ),
         ],
       )
+
 
 
     );
@@ -365,17 +375,17 @@ class _EnergyDisplayScreenState extends State<EnergyDisplayScreen> with TickerPr
           children: [
             SizedBox(height: size.height * 0.10),
             _buildEnergyGauge(size, smallerDimension),
-            if (kDebugMode)
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Set the energy value directly to 100%
-                    updateEnergyValue(4000.0);
-                  },
-                  child: Text('Set Energy to 100%'),
-                ),
-              ),
+            // if (kDebugMode)
+            //   Padding(
+            //     padding: const EdgeInsets.all(8.0),
+            //     child: ElevatedButton(
+            //       onPressed: () {
+            //         // Set the energy value directly to 100%
+            //         updateEnergyValue(4000.0);
+            //       },
+            //       child: Text('Set Energy to 100%'),
+            //     ),
+            //   ),
             SizedBox(height: size.height * 0.07),
             _buildBottomText(size),
           ],

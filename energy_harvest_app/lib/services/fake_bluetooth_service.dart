@@ -33,8 +33,8 @@ class FakeBluetoothSerialService {
   }
 
   Stream<String> getEnergyValues() {
-    return Stream.periodic(const Duration(seconds: 10), (count) {
-      double value = 100 + Random().nextDouble() * 100; // Random value between 100 and 200
+    return Stream.periodic(const Duration(seconds: 2), (count) {
+      double value = 400 + Random().nextDouble() * 100; // Random value between 100 and 200
       return value.toStringAsFixed(1);
     });
   }
