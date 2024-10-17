@@ -16,6 +16,7 @@ class EnergyHarvestApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Energy Harvest',
       theme: ThemeData(
         fontFamily: 'SUIT',

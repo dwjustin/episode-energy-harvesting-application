@@ -545,7 +545,7 @@ class _EnergyDisplayScreenState extends State<EnergyDisplayScreen> with TickerPr
                     ),
                   ),
                   Text(
-                    "와 함께 만들은 시너지",
+                    "와 함께 만든 시너지",
                     style: TextStyle(
                       fontFamily: 'SUIT',
                       color: Colors.white,
